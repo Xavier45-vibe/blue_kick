@@ -40,3 +40,14 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+.vercel
+.env*
+admin-login.local.txt
+*.ps1
+*.log
+v*.txt
+setpw.txt
+
+admin-login.local.txt
+*.ps1
