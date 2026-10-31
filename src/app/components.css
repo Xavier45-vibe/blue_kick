@@ -1,0 +1,102 @@
+/* Reusable "Gallery Pop" component classes: ink outlines + hard offset shadows. */
+
+.card-pop {
+  background: #fff;
+  border: 2px solid var(--ink);
+  border-radius: 1.25rem;
+  box-shadow: var(--pop);
+  transition: transform var(--transition-base), box-shadow var(--transition-base);
+}
+.card-pop:hover { transform: translate(-3px, -3px); box-shadow: 7px 7px 0 0 var(--ink); }
+.panel { background: #fff; border: 2px solid var(--ink); border-radius: 1.25rem; }
+
+/* Sticker badges */
+.sticker {
+  display: inline-block;
+  border: 2px solid var(--ink);
+  border-radius: 9999px;
+  padding: 0.15rem 0.7rem;
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink);
+  background: #fff;
+}
+.sticker-violet { background: var(--bk-violet); }
+.sticker-pink { background: var(--bk-pink); }
+.sticker-gold { background: var(--bk-gold); }
+.sticker-dark { background: var(--bk-grey-900); color: #fff; }
+.sticker-green { background: #10b981; color: var(--ink); }
+.sticker-red { background: #ef4444; color: #fff; }
+.sticker-blue { background: #3b82f6; color: #fff; }
+
+/* Buttons: flat colour, ink outline, hard shadow that "presses" on click */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 46px;
+  padding: 0.7rem 1.6rem;
+  border: 2px solid var(--ink);
+  border-radius: 9999px;
+  font-weight: 700;
+  font-size: 0.9375rem;
+  color: var(--ink);
+  background: #fff;
+  box-shadow: 3px 3px 0 0 var(--ink);
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast), background var(--transition-base);
+  cursor: pointer;
+  text-align: center;
+}
+.btn:hover:not(:disabled) { transform: translate(-2px, -2px); box-shadow: 5px 5px 0 0 var(--ink); }
+.btn:active:not(:disabled) { transform: translate(3px, 3px); box-shadow: 0 0 0 0 var(--ink); }
+.btn:disabled { opacity: 0.45; cursor: not-allowed; box-shadow: none; }
+.btn-primary { background: var(--bk-violet); }
+.btn-pink { background: var(--bk-pink); }
+.btn-gold { background: var(--bk-gold); }
+.btn-dark { background: var(--bk-grey-900); color: #fff; box-shadow: 3px 3px 0 0 var(--bk-violet); }
+.btn-dark:hover:not(:disabled) { box-shadow: 5px 5px 0 0 var(--bk-violet); }
+.btn-ghost { background: #fff; }
+.btn-danger { background: #ef4444; color: #fff; }
+.btn-sm { min-height: 38px; padding: 0.4rem 1rem; font-size: 0.8125rem; }
+
+/* Form fields */
+.field {
+  width: 100%;
+  min-height: 46px;
+  padding: 0.65rem 1rem;
+  border: 2px solid var(--ink);
+  border-radius: 0.85rem;
+  background: #fff;
+  color: var(--bk-grey-900);
+  font-size: 1rem;
+  transition: box-shadow var(--transition-fast), transform var(--transition-fast);
+}
+.field:focus { outline: none; box-shadow: 4px 4px 0 0 var(--bk-violet); transform: translate(-2px, -2px); }
+.label {
+  display: block;
+  margin-bottom: 0.35rem;
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--bk-grey-700);
+}
+
+/* Admin tables: calmer and denser, still on-palette */
+.admin-table { width: 100%; border-collapse: collapse; font-size: 0.875rem; }
+.admin-table th {
+  text-align: left;
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--bk-grey-600);
+  padding: 0.75rem 1rem;
+  border-bottom: 2px solid var(--ink);
+  background: var(--bk-grey-50);
+  white-space: nowrap;
+}
+.admin-table td { padding: 0.75rem 1rem; border-bottom: 1px solid var(--bk-grey-200); vertical-align: middle; }
+.admin-table tbody tr:hover { background: var(--bk-grey-50); }

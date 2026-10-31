@@ -1,0 +1,214 @@
+// Blue Kick data model (spec section 4 plus orders, users, newsletter, content).
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum ProductStatus {
+  draft
+  active
+  archived
+}
+
+enum Role {
+  SUPER_ADMIN
+  STORE_MANAGER
+}
+
+enum PaymentStatus {
+  pending
+  paid
+  failed
+  refunded
+}
+
+enum FulfillmentStatus {
+  unfulfilled
+  shipped
+  delivered
+  cancelled
+}
+
+model Category {
+  id          String     @id @default(cuid())
+  name        String
+  slug        String     @unique
+  description String?
+  parentId    String?
+  parent      Category?  @relation("CategoryTree", fields: [parentId], references: [id])
+  children    Category[] @relation("CategoryTree")
+  image       String?
+  position    Int        @default(0)
+  isActive    Boolean    @default(true)
+  products    Product[]
+}
+
+model Product {
+  id               String            @id @default(cuid())
+  slug             String            @unique
+  name             String
+  shortDescription String
+  description      String
+  price            Int
+  compareAtPrice   Int?
+  costPrice        Int?
+  sku              String            @unique
+  barcode          String?
+  status           ProductStatus     @default(draft)
+  isFeatured       Boolean           @default(false)
+  isNew            Boolean           @default(false)
+  categoryId       String
+  category         Category          @relation(fields: [categoryId], references: [id])
+  tags             String[]
+  images           ProductImage[]
+  variants         ProductVariant[]
+  quantity         Int               @default(0)
+  lowStockThreshold Int              @default(10)
+  trackInventory   Boolean           @default(true)
+  allowBackorder   Boolean           @default(false)
+  seoTitle         String?
+  seoDescription   String?
+  weight           Int?
+  dimensions       Json?
+  toneFrom         String            @default("#9CA3AF")
+  toneTo           String            @default("#374151")
+  createdAt        DateTime          @default(now())
+  updatedAt        DateTime          @updatedAt
+  orderItems       OrderItem[]
+
+  @@index([status, isFeatured])
+  @@index([categoryId])
+}
+
+model ProductImage {
+  id        String  @id @default(cuid())
+  productId String
+  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+  url       String
+  altText   String
+  position  Int     @default(0)
+  isPrimary Boolean @default(false)
+}
+
+model ProductVariant {
+  id                String  @id @default(cuid())
+  productId         String
+  product           Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+  name              String
+  sku               String  @unique
+  price             Int
+  compareAtPrice    Int?
+  inventoryQuantity Int     @default(0)
+  attributes        Json    @default("{}")
+}
+
+model User {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  name         String
+  passwordHash String
+  role         Role     @default(STORE_MANAGER)
+  createdAt    DateTime @default(now())
+}
+
+model PasswordReset {
+  id        String   @id @default(cuid())
+  email     String
+  tokenHash String   @unique
+  expiresAt DateTime
+  usedAt    DateTime?
+  createdAt DateTime @default(now())
+}
+
+model Order {
+  id                 String            @id @default(cuid())
+  number             String            @unique
+  idempotencyKey     String            @unique
+  email              String
+  shippingAddress    Json
+  billingAddress     Json
+  items              OrderItem[]
+  subtotal           Int
+  discount           Int               @default(0)
+  shipping           Int               @default(0)
+  total              Int
+  shippingMethodId   String
+  shippingMethodName String
+  estimatedDelivery  DateTime
+  paymentMethod      String
+  paymentReference   String
+  paymentStatus      PaymentStatus     @default(pending)
+  fulfillmentStatus  FulfillmentStatus @default(unfulfilled)
+  trackingNumber     String?
+  note              String?
+  internalNotes      OrderNote[]
+  createdAt          DateTime          @default(now())
+
+  @@index([createdAt])
+  @@index([email])
+}
+
+model OrderItem {
+  id        String  @id @default(cuid())
+  orderId   String
+  order     Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  productId String
+  product   Product @relation(fields: [productId], references: [id])
+  name      String
+  sku       String
+  unitPrice Int
+  quantity  Int
+  toneFrom  String  @default("#9CA3AF")
+  toneTo    String  @default("#374151")
+}
+
+model OrderNote {
+  id        String   @id @default(cuid())
+  orderId   String
+  order     Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  author    String
+  body      String
+  createdAt DateTime @default(now())
+}
+
+model Subscriber {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  source    String   @default("website")
+  createdAt DateTime @default(now())
+}
+
+model ContactMessage {
+  id        String   @id @default(cuid())
+  name      String
+  email     String
+  message   String
+  createdAt DateTime @default(now())
+}
+
+model TeamMember {
+  id       String @id @default(cuid())
+  name     String
+  role     String
+  bio      String
+  photoUrl String?
+  position Int    @default(0)
+  toneFrom String @default("#C084FC")
+  toneTo   String @default("#F472B6")
+}
+
+/// Editable landing/about copy. One row per key, JSON payload.
+model ContentBlock {
+  key       String   @id
+  data      Json
+  updatedAt DateTime @updatedAt
+}
+
+model Setting {
+  key   String @id
+  value Json
+}

@@ -1,0 +1,14 @@
+import type { ProductSeed } from "./product-factory";
+
+export const seedsB: ProductSeed[] = [
+  { slug: "linen-canvas-panels", name: "Linen Canvas Panels", short: "Pack of six primed linen panels, in two sizes.", long: "Archival-primed linen over rigid board. A smooth, professional surface ready for oil or acrylic.", price: 3200, category: "cat-paper", tags: ["canvas", "acrylic", "oil"], stock: 30, tone: ["#E5E7EB", "#FBBF24"], weight: 700, variants: [
+    { name: "8x10 inch", price: 3200, qty: 30, attributes: { size: "8x10" } },
+    { name: "11x14 inch", price: 4400, qty: 18, attributes: { size: "11x14" } },
+  ] },
+  { slug: "gilded-brush-pen-set", name: "Gilded Brush Pen Set", short: "Ten dual-tip brush pens with a touch of metallic shimmer.", long: "Flexible tips for lettering that dances. Water-based, blendable inks in a vibrant, glamorous range.", price: 2100, category: "cat-calligraphy", tags: ["lettering", "beginner", "gold"], featured: true, isNew: true, stock: 52, tone: ["#FBBF24", "#F472B6"], weight: 140 },
+  { slug: "copperplate-nib-kit", name: "Copperplate Nib Kit", short: "Oblique holder, five nibs and a bottle of midnight ink.", long: "Everything you need to begin elegant copperplate script, with a practice guide included.", price: 2700, category: "cat-calligraphy", tags: ["calligraphy", "beginner"], stock: 26, tone: ["#374151", "#FBBF24"], weight: 200 },
+  { slug: "blue-kick-starter-kit", name: "Blue Kick Starter Kit", short: "Our best sellers in one gift-ready box. Everything to begin.", long: "A curated starter bundle: graphite set, acrylic trio, brush trio and a cotton pad. Beautifully boxed for gifting.", price: 8900, compareAt: 10900, category: "cat-sets", tags: ["kit", "gift", "beginner"], featured: true, isNew: true, stock: 18, tone: ["#C084FC", "#4B5563"], weight: 1400 },
+  { slug: "pro-watercolor-travel-kit", name: "Pro Watercolor Travel Kit", short: "Palette, brushes and pad in a compact grey canvas roll.", long: "Paint anywhere. A complete plein-air watercolor kit designed to slip into your tote.", price: 6900, category: "cat-sets", tags: ["kit", "watercolor", "travel"], stock: 12, tone: ["#6B7280", "#F472B6"], weight: 900 },
+  { slug: "tabletop-easel-in-grey", name: "Tabletop Easel in Grey", short: "Foldable beechwood easel with a soft grey finish.", long: "Sturdy, adjustable and gorgeous on a desk. Holds canvases up to 14 inches.", price: 3900, category: "cat-accessories", tags: ["easel", "studio"], stock: 20, tone: ["#9CA3AF", "#F3F4F6"], weight: 850 },
+  { slug: "studio-canvas-tote", name: "Studio Canvas Tote", short: "Heavy canvas tote with padded sleeve and gold zip pocket.", long: "Carry your kit in style. Water-resistant lining, internal brush loops and a sketchbook sleeve.", price: 2300, category: "cat-accessories", tags: ["tote", "travel", "gold"], stock: 0, tone: ["#4B5563", "#FBBF24"], weight: 380 },
+];

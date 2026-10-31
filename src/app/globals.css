@@ -1,0 +1,130 @@
+@import "tailwindcss";
+@import "./components.css";
+
+/* ───────────────────────────────────────────────────────────
+   Blue Kick: "Gallery Pop"
+   Tokens come straight from the project specification (section 6).
+   Grey is the dominant brand colour; violet, pink and gold are accents.
+   ─────────────────────────────────────────────────────────── */
+:root {
+  --bk-grey-50: #f9fafb;
+  --bk-grey-100: #f3f4f6;
+  --bk-grey-200: #e5e7eb;
+  --bk-grey-300: #d1d5db;
+  --bk-grey-400: #9ca3af;
+  --bk-grey-500: #6b7280;
+  --bk-grey-600: #4b5563;
+  --bk-grey-700: #374151;
+  --bk-grey-800: #1f2937;
+  --bk-grey-900: #111827;
+
+  --bk-violet: #c084fc;
+  --bk-pink: #f472b6;
+  --bk-gold: #fbbf24;
+
+  --bg-accent: linear-gradient(135deg, #c084fc 0%, #f472b6 100%);
+  --shadow-glow: 0 0 20px rgb(192 132 252 / 0.3);
+  --transition-fast: 150ms ease;
+  --transition-base: 250ms ease;
+  --transition-slow: 400ms ease;
+
+  --ink: var(--bk-grey-900);
+  --pop: 4px 4px 0 0 var(--ink);
+}
+
+@theme inline {
+  --color-grey-50: #f9fafb;
+  --color-grey-100: #f3f4f6;
+  --color-grey-200: #e5e7eb;
+  --color-grey-300: #d1d5db;
+  --color-grey-400: #9ca3af;
+  --color-grey-500: #6b7280;
+  --color-grey-600: #4b5563;
+  --color-grey-700: #374151;
+  --color-grey-800: #1f2937;
+  --color-grey-900: #111827;
+  --color-violet: #c084fc;
+  --color-pink: #f472b6;
+  --color-gold: #fbbf24;
+  --color-success: #10b981;
+  --color-warning: #f59e0b;
+  --color-error: #ef4444;
+  --color-info: #3b82f6;
+  --font-sans: var(--font-inter), system-ui, sans-serif;
+  --font-display: var(--font-playfair), Georgia, serif;
+  --shadow-glow: 0 0 20px rgb(192 132 252 / 0.3);
+  --shadow-pop: 4px 4px 0 0 #111827;
+  --shadow-pop-lg: 8px 8px 0 0 #111827;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bk-grey-100);
+  color: var(--bk-grey-800);
+  font-family: var(--font-inter), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3 {
+  font-family: var(--font-playfair), Georgia, serif;
+  color: var(--bk-grey-900);
+  letter-spacing: -0.02em;
+}
+
+::selection { background: var(--bk-violet); color: var(--bk-grey-900); }
+
+:focus-visible {
+  outline: 3px solid var(--bk-pink);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+.container-bk {
+  width: 100%;
+  max-width: 1280px;
+  margin-inline: auto;
+  padding-inline: 1.25rem;
+}
+@media (min-width: 768px) { .container-bk { padding-inline: 2rem; } }
+
+/* Gradient is a highlight, not a surface. */
+.text-gradient {
+  background: var(--bg-accent);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.bg-accent-gradient { background: var(--bg-accent); }
+
+/* Highlighter underline behind a word */
+.mark-gold {
+  background: linear-gradient(transparent 62%, var(--bk-gold) 62%, var(--bk-gold) 92%, transparent 92%);
+  padding-inline: 0.1em;
+}
+.mark-violet {
+  background: linear-gradient(transparent 62%, var(--bk-violet) 62%, var(--bk-violet) 92%, transparent 92%);
+  padding-inline: 0.1em;
+}
+
+/* Motion */
+@keyframes rise { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
+.rise { animation: rise 600ms ease both; }
+.rise-2 { animation: rise 600ms 120ms ease both; }
+.rise-3 { animation: rise 600ms 240ms ease both; }
+
+@keyframes float { 0%, 100% { transform: translateY(0) rotate(var(--r, 0deg)); } 50% { transform: translateY(-10px) rotate(var(--r, 0deg)); } }
+.float { animation: float 6s ease-in-out infinite; }
+
+@keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+.marquee { animation: marquee 32s linear infinite; }
+.marquee:hover { animation-play-state: paused; }
+
+@keyframes spin-slow { to { transform: rotate(360deg); } }
+.spin-slow { animation: spin-slow 22s linear infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .rise, .rise-2, .rise-3, .float, .marquee, .spin-slow { animation: none; }
+  .btn, .field, .card-pop { transition: none; }
+}
