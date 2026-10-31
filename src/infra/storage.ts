@@ -27,6 +27,9 @@ export class CloudinaryStorage implements ImageStorage {
 export class LocalDiskStorage implements ImageStorage {
   readonly name = "local";
   async upload(file: { buffer: Buffer; filename: string; contentType: string }) {
+    if (process.env.VERCEL) {
+      throw new Error("Local disk uploads are not supported on Vercel (read-only filesystem). Set the CLOUDINARY_* variables.");
+    }
     const ext = (path.extname(file.filename) || ".png").toLowerCase().replace(/[^.a-z0-9]/g, "");
     const name = `${randomUUID()}${ext}`;
     const dir = path.join(process.cwd(), "public", "uploads");

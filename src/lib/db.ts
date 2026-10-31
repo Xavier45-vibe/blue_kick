@@ -12,7 +12,9 @@ function create(): PrismaClient {
   if (!url) {
     throw new Error("DATABASE_URL is not set. Copy .env.example to .env and add your PostgreSQL connection string.");
   }
-  return new PrismaClient({ adapter: new PrismaPg({ connectionString: url }) });
+  // Serverless (Vercel): keep the pool tiny so many function instances do not exhaust Postgres connections.
+  const max = process.env.VERCEL ? 1 : 10;
+  return new PrismaClient({ adapter: new PrismaPg({ connectionString: url, max }) });
 }
 
 export const db: PrismaClient = new Proxy({} as PrismaClient, {

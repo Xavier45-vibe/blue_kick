@@ -4,6 +4,7 @@
  */
 import { createEmailSender } from "@/infra/email";
 import { createImageStorage } from "@/infra/storage";
+import { getAppUrl } from "@/lib/app-url";
 import {
   PrismaCategoryRepository,
   PrismaContactStore,
@@ -24,7 +25,7 @@ const products = new PrismaProductRepository();
 const orders = new PrismaOrderStore();
 const newsletterStore = new PrismaNewsletterStore();
 const emailSender = createEmailSender();
-const appUrl = process.env.APP_URL ?? "http://localhost:3000";
+const appUrl = getAppUrl();
 
 const shippingMethods = async () => buildShippingMethods(await getSetting("shipping"));
 const enabledPayments = async () => {

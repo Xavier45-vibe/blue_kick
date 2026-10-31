@@ -5,6 +5,7 @@ import bcrypt from "bcryptjs";
 import { AuthError } from "next-auth";
 import { redirect } from "next/navigation";
 import { signIn, signOut } from "@/auth";
+import { getAppUrl } from "@/lib/app-url";
 import { db } from "@/lib/db";
 import { done, fail, type ActionState } from "@/lib/action-state";
 import { container } from "@/services/container";
@@ -43,7 +44,7 @@ export async function requestPasswordReset(_prev: ActionState, formData: FormDat
   const token = randomBytes(32).toString("hex");
   await db.passwordReset.deleteMany({ where: { email } });
   await db.passwordReset.create({ data: { email, tokenHash: sha(token), expiresAt: new Date(Date.now() + 60 * 60 * 1000) } });
-  const link = `${process.env.APP_URL ?? "http://localhost:3000"}/admin/reset-password?token=${token}`;
+  const link = `${getAppUrl()}/admin/reset-password?token=${token}`;
   try {
     await container.email.send({ to: email, subject: "Reset your Blue Kick admin password", html: passwordResetHtml(link) });
   } catch (e) {

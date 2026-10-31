@@ -11,6 +11,17 @@ Family-owned art supplies store. Next.js 16, Tailwind 4, Prisma 7 (PostgreSQL), 
 
 Storefront: http://localhost:3000. Admin: http://localhost:3000/admin (sign in with the seeded account, then change the password).
 
+## Deploying to Vercel
+
+`.env` is git-ignored, so set these in Vercel > Project > Settings > Environment Variables, then redeploy:
+
+- `DATABASE_URL`: a hosted PostgreSQL URL reachable from the internet (Neon, Supabase, Vercel Postgres). Use the pooled URL. `localhost` will not work.
+- `AUTH_SECRET`: required by Auth.js in production (`npx auth secret`).
+- `APP_URL`: your public URL (falls back to the Vercel URL).
+- `CLOUDINARY_*`: required for image uploads, because Vercel's filesystem is read-only.
+
+Run `npm run db:push` and `npm run db:seed` once against the hosted database from your machine (with `DATABASE_URL` pointing at it).
+
 ## Integrations (all optional, with safe fallbacks)
 
 | Service | Env vars | Without them |
