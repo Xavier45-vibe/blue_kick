@@ -4,6 +4,7 @@ import { defaultShippingSettings, type ShippingSettings } from "@/services/shipp
 
 export interface GeneralSettings {
   storeName: string;
+  brandColor: string;
   contactEmail: string;
   address: string;
   instagram: string;
@@ -18,6 +19,7 @@ export interface PaymentSettings {
 
 export const defaultGeneral: GeneralSettings = {
   storeName: "Blue Kick",
+  brandColor: "#c084fc",
   contactEmail: "hello@bluekick.store",
   address: "",
   instagram: "",

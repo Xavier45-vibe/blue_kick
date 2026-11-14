@@ -6,7 +6,7 @@ import { useState } from "react";
 import { useCart } from "@/components/cart/cart-context";
 import { navLinks } from "@/lib/navigation";
 
-export function Header() {
+export function Header({ storeName }: { storeName: string }) {
   const pathname = usePathname();
   const { count, ready } = useCart();
   const [open, setOpen] = useState(false);
@@ -15,10 +15,10 @@ export function Header() {
   return (
     <header className="sticky top-0 z-50 border-b-2 border-grey-900 bg-white">
       <div className="container-bk flex h-16 items-center justify-between gap-4 md:h-20">
-        <Link href="/" className="group flex items-center gap-3" onClick={() => setOpen(false)} aria-label="Blue Kick home">
-          <span className="grid h-10 w-10 -rotate-6 place-items-center rounded-xl border-2 border-grey-900 bg-gold font-display text-xl font-black text-grey-900 shadow-pop transition group-hover:rotate-6">B</span>
+        <Link href="/" className="group flex items-center gap-3" onClick={() => setOpen(false)} aria-label={`${storeName} home`}>
+          <span className="grid h-10 w-10 -rotate-6 place-items-center rounded-xl border-2 border-grey-900 bg-violet font-display text-xl font-black text-grey-900 shadow-pop transition group-hover:rotate-6">{storeName.trim().charAt(0).toUpperCase() || "B"}</span>
           <span className="font-display text-2xl font-black tracking-tight text-grey-900">
-            Blue<span className="text-violet">Kick</span>
+            {storeName}
           </span>
         </Link>
 

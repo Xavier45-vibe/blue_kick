@@ -1,14 +1,12 @@
 import Link from "next/link";
 import { footerLinks } from "@/lib/navigation";
 
-export function Footer() {
+export function Footer({ storeName }: { storeName: string }) {
   return (
     <footer className="mt-16 border-t-2 border-grey-900 bg-grey-900 text-grey-300">
       <div className="container-bk grid gap-10 py-14 md:grid-cols-[1.4fr_1fr_1fr]">
         <div>
-          <p className="font-display text-4xl font-black text-white">
-            Blue<span className="text-violet">Kick</span>
-          </p>
+          <p className="font-display text-4xl font-black text-white">{storeName}</p>
           <p className="mt-4 max-w-sm text-sm leading-relaxed text-grey-400">
             A family-owned art supplies store. Premium quality, lively colour and a little glamour for every maker.
           </p>
@@ -35,7 +33,7 @@ export function Footer() {
         </div>
       </div>
       <div className="border-t border-grey-700">
-        <p className="container-bk py-5 text-xs text-grey-500">© 2026 Blue Kick. Made with care by our family.</p>
+        <p className="container-bk py-5 text-xs text-grey-500">© 2026 {storeName}. Made with care by our family.</p>
       </div>
     </footer>
   );

@@ -60,6 +60,7 @@ export async function saveGeneralSettings(_prev: ActionState, formData: FormData
   await requireAdmin(["SUPER_ADMIN"]);
   const data: GeneralSettings = {
     storeName: String(formData.get("storeName") ?? "").trim(),
+    brandColor: String(formData.get("brandColor") ?? "").trim(),
     contactEmail: String(formData.get("contactEmail") ?? "").trim(),
     address: String(formData.get("address") ?? "").trim(),
     instagram: String(formData.get("instagram") ?? "").trim(),
@@ -67,8 +68,11 @@ export async function saveGeneralSettings(_prev: ActionState, formData: FormData
     logoUrl: String(formData.get("logoUrl") ?? "").trim(),
   };
   if (!data.storeName) return fail("Store name is required.");
+  if (!/^#[\da-fA-F]{6}$/.test(data.brandColor)) return fail("Choose a valid brand color.");
   if (!/^\S+@\S+\.\S+$/.test(data.contactEmail)) return fail("Enter a valid contact email.");
   await saveSetting("general", data);
+  revalidatePath("/", "layout");
+  revalidatePath("/admin/settings/general");
   return done("General settings saved.");
 }
 

@@ -22,7 +22,7 @@
   --bk-pink: #f472b6;
   --bk-gold: #fbbf24;
 
-  --bg-accent: linear-gradient(135deg, #c084fc 0%, #f472b6 100%);
+  --bg-accent: linear-gradient(135deg, var(--bk-violet) 0%, var(--bk-pink) 100%);
   --shadow-glow: 0 0 20px rgb(192 132 252 / 0.3);
   --transition-fast: 150ms ease;
   --transition-base: 250ms ease;
@@ -43,7 +43,7 @@
   --color-grey-700: #374151;
   --color-grey-800: #1f2937;
   --color-grey-900: #111827;
-  --color-violet: #c084fc;
+  --color-violet: var(--bk-violet);
   --color-pink: #f472b6;
   --color-gold: #fbbf24;
   --color-success: #10b981;
